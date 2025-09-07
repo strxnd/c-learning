@@ -18,22 +18,6 @@
 #define ASIN 1007
 #define ACOS 1008
 #define ATAN 1009
-#define ATAN2 1010
-#define SINH 1011
-#define COSH 1012
-#define TANH 1013
-#define EXP 1014
-#define LOG 1015
-#define LOG10 1016
-#define POW 1017
-#define SQRT 1018
-#define CEIL 1019
-#define FLOOR 1020
-#define FABS 1021
-#define LDEXP 1022
-#define FREXP 1023
-#define MODF 1024
-#define FMOD 1025
 #define UNKNOWN_CMD -1
 
 void parse_number(int next_char, int start_index, char s[], int c);
@@ -80,6 +64,10 @@ int main() {
       break;
     case ACOS:
       push(acos(atof(s)));
+      last_was_command = 0;
+      break;
+    case ATAN:
+      push(atan(atof(s)));
       last_was_command = 0;
       break;
     case '+':
@@ -188,7 +176,6 @@ double pop(void) {
 }
 
 void parse_number(int next_char, int start_index, char s[], int c) {
-
   int i = start_index;
 
   s[i] = next_char;
@@ -247,18 +234,14 @@ int getop(char s[]) {
       int next_char = getch();
       parse_number(next_char, 0, s, c);
       return ASIN;
-    } else if (strcmp(s, "acos")) {
+    } else if (strcmp(s, "acos") == 0) {
       int next_char = getch();
       parse_number(next_char, 0, s, c);
       return ACOS;
-    } else if (strcmp(s, "atan")) {
+    } else if (strcmp(s, "atan") == 0) {
       int next_char = getch();
       parse_number(next_char, 0, s, c);
       return ATAN;
-    } else if (strcmp(s, "atan2")) {
-      int next_char = getch();
-      parse_number(next_char, 0, s, c);
-      return ATAN2;
     } else {
       return UNKNOWN_CMD;
     }
